@@ -490,7 +490,8 @@
             <div class="torn-paper torn-edge-box px-4 py-2 mt-2.5 transform rotate-1 shadow-md text-center w-full max-w-[275px] self-center sm:self-start">
               <p class="font-hand text-xs sm:text-[14px] leading-tight text-[#2b2523] font-semibold">
                 Korean-inspired accessories, curated<br/>
-                for your everyday stories. <span class="text-[#e11d48]">♡</span>
+                for your everyday stories. <span class="text-[#e11d48]">♡</span><br/>
+                <span class="text-[#e91e78] font-bold text-[13px]">✨ Anti-Tarnish Coating for Longer Lifespan</span>
               </p>
             </div>
           </div>
@@ -524,7 +525,7 @@
               <div class="font-hand text-[11px] sm:text-[13px] leading-snug text-[#1f2937] font-bold space-y-0.5">
                 <div class="flex items-center gap-1"><span class="text-[#ec1b7c] border border-[#ec1b7c] rounded-[2px] px-0.5 text-[9px] leading-none">✓</span> Same You</div>
                 <div class="flex items-center gap-1"><span class="text-[#ec1b7c] border border-[#ec1b7c] rounded-[2px] px-0.5 text-[9px] leading-none">✓</span> Different Mood</div>
-                <div class="flex items-center gap-1"><span class="text-[#ec1b7c] border border-[#ec1b7c] rounded-[2px] px-0.5 text-[9px] leading-none">✓</span> More Style <span class="text-[#e11d48]">♡</span></div>
+                <div class="flex items-center gap-1"><span class="text-[#ec1b7c] border border-[#ec1b7c] rounded-[2px] px-0.5 text-[9px] leading-none">✓</span> Anti-Tarnish ♡</div>
               </div>
             </div>
 
@@ -567,10 +568,10 @@
             </div>
 
             <div class="bg-[#fdfbf7] border border-[#e5dec9] shadow-md px-4 py-2.5 -mt-1 transform -rotate-2 z-10 w-full max-w-[240px] text-center">
-              <p class="font-hand text-[14.5px] sm:text-[15.5px] leading-snug text-[#231f20] font-bold">
+              <p class="font-hand text-[14px] sm:text-[15px] leading-snug text-[#231f20] font-bold">
                 Each Seoul Pouch includes<br/>
                 <span class="text-[#e11d48] font-extrabold">8</span> coordinated accessories<br/>
-                in a cute, reusable pouch! <span class="text-[#e11d48]">♡</span>
+                with <span class="text-[#166534] font-bold">anti-tarnish coating</span> for a longer lifespan! ✨
               </p>
             </div>
 
@@ -1034,7 +1035,7 @@
 
         <div class="torn-paper torn-edge-box pt-5 pb-4 px-3 sm:px-4">
           <p class="font-hand text-xs sm:text-sm font-bold text-[#2b2523] mb-2.5 ml-2">
-            Select all that you like <span class="text-[#e11d48]">♡</span>
+            Select all that you like <span class="text-[#e11d48]">♡</span> (Anti-Tarnish Coated)
           </p>
 
           <div class="grid grid-cols-4 sm:grid-cols-8 gap-2 items-start">
@@ -1148,7 +1149,7 @@
           <textarea
             id="feedback-thoughts"
             rows="2"
-            placeholder="Tell us your thoughts... (e.g., design, price, quality, any other suggestions)"
+            placeholder="Tell us your thoughts... (e.g., design, price, quality, anti-tarnish, any other suggestions)"
             class="w-full rounded-lg bg-[#fcfbf9] border border-[#d6cfc2] px-3.5 py-2.5 font-hand text-sm sm:text-base text-[#231f20] placeholder-[#9ca3af] shadow-inner focus:outline-none focus:border-[#ec1b7c] focus:ring-2 focus:ring-[#ec1b7c]/20 resize-none"
           ></textarea>
 
@@ -1277,7 +1278,7 @@
     function handleFeedbackSubmit(event) {
       event.preventDefault();
       const thoughtsInput = document.getElementById('feedback-thoughts');
-      surveyState.thoughts = thoughtsInput.value.trim() || 'Love the K-inspired scrapbook vibe! ♡';
+      surveyState.thoughts = thoughtsInput.value.trim() || 'Love the K-inspired scrapbook vibe & anti-tarnish coating! ♡';
 
       const accList = Array.from(surveyState.accessories);
       const summaryEl = document.getElementById('modal-summary');
@@ -1299,7 +1300,8 @@
                   `• *Chosen Vibe:* ${surveyState.collection}\n` +
                   `• *Price Verdict:* ${surveyState.priceSentiment}\n` +
                   `• *Selected Accessories:* ${accList.join(', ')}\n` +
-                  `• *Thoughts:* "${surveyState.thoughts}"`;
+                  `• *Thoughts:* "${surveyState.thoughts}"\n` +
+                  `• *Perks:* Anti-tarnish coated for longer lifespan! ✨`;
       
       const whatsappNumber = '9940590590';
       const encodedMsg = encodeURIComponent(msg);
