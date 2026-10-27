@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <title>Seoul Pouch — One Pouch. Multiple Moods. | IVB Group 12</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts matching the exact Y2K Scrapbook / Handwritten Zine aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Caveat:wght@600;700&family=Fredoka:wght@600;700;800&family=Gochi+Hand&family=Patrick+Hand&family=Permanent+Marker&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --wood-green-dark: #0b3b1e;
+      --wood-green-mid: #12512b;
+      --wood-green-light: #1a6637;
+      --paper-cream: #f7f1e1;
+      --paper-warm: #f2e8cf;
+      --tape-pink: #f679b5;
+      --tape-hotpink: #e91e78;
+      --tape-yellow: #f9d849;
+      --cork-tan: #c89666;
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    input, textarea {
+      user-select: text;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Patrick Hand', cursive, sans-serif;
+      background-color: var(--wood-green-dark);
+      color: #231f20;
+      overflow-x: hidden;
+    }
+
+    /* Distressed Green Painted Wooden Plank Background */
+    .green-wood-bg {
+      background-color: #104926;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.02) 0px,
+          rgba(255, 255, 255, 0.02) 2px,
+          transparent 2px,
+          transparent 9px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.38) 0px,
+          rgba(0, 0, 0, 0.15) 3px,
+          rgba(255, 255, 255, 0.04) 5px,
+          transparent 18px,
+          transparent 110px,
+          rgba(0, 0, 0, 0.22) 118px,
+          rgba(0, 0, 0, 0.45) 120px
+        ),
+        radial-gradient(circle at 50% 15%, #1d6d3b 0%, #0f4824 55%, #082c15 100%);
+      position: relative;
+    }
+
+    /* Torn / Deckle Paper Edges */
+    .torn-paper {
+      background-color: var(--paper-cream);
+      background-image:
+        radial-gradient(rgba(180, 155, 115, 0.12) 1px, transparent 0),
+        linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(244, 234, 212, 0.9) 100%);
+      background-size: 16px 16px, 100% 100%;
+      box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.45),
+        0 2px 5px rgba(0, 0, 0, 0.25),
+        inset 0 0 30px rgba(196, 173, 134, 0.28);
+      border-radius: 3px;
+      position: relative;
+    }
+
+    /* Jagged torn top/bottom edge effect optimized across viewports */
+    .torn-edge-box {
+      clip-path: polygon(
+        0% 1%, 3% 0%, 6% 1.2%, 9% 0.2%, 13% 1%, 17% 0%, 21% 1.1%, 25% 0.3%, 29% 1%, 33% 0.1%, 37% 1.2%, 41% 0.2%, 45% 1%, 49% 0%, 53% 1.1%, 57% 0.2%, 61% 1%, 65% 0.1%, 69% 1.2%, 73% 0.3%, 77% 1%, 81% 0%, 85% 1.1%, 89% 0.2%, 93% 1%, 97% 0.1%, 100% 1%,
+        99.6% 15%, 100% 30%, 99.4% 48%, 100% 65%, 99.5% 82%, 100% 99%,
+        97% 99.8%, 93% 98.9%, 89% 99.9%, 85% 98.8%, 81% 99.7%, 77% 99%, 73% 99.9%, 69% 98.8%, 65% 99.7%, 61% 99%, 57% 99.8%, 53% 98.9%, 49% 99.9%, 45% 98.8%, 41% 99.7%, 37% 99%, 33% 99.9%, 29% 98.8%, 25% 99.7%, 21% 99%, 17% 99.8%, 13% 98.9%, 9% 99.9%, 6% 98.8%, 3% 99.7%, 0% 99%,
+        0.5% 80%, 0% 62%, 0.6% 45%, 0% 25%
+      );
+    }
+
+    /* Spiral Notebook Holes on Left Edge */
+    .notebook-holes {
+      position: absolute;
+      left: 6px;
+      top: 16px;
+      bottom: 16px;
+      width: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .notebook-hole {
+      width: 10px;
+      height: 10px;
+      background-color: #114c27;
+      border-radius: 50%;
+      box-shadow: inset 1px 2px 3px rgba(0,0,0,0.7), 0 1px 0 rgba(255,255,255,0.5);
+      position: relative;
+    }
+    .notebook-hole::before {
+      content: '';
+      position: absolute;
+      left: -7px;
+      top: 3px;
+      width: 8px;
+      height: 4px;
+      background: #114c27;
+    }
+
+    @media (min-width: 640px) {
+      .notebook-hole {
+        width: 12px;
+        height: 12px;
+      }
+      .notebook-hole::before {
+        left: -8px;
+        top: 4px;
+        width: 9px;
+      }
+    }
+
+    /* Wooden Frame & Corkboard Hero */
+    .wood-frame {
+      background: linear-gradient(135deg, #b8824c 0%, #936032 25%, #ab7543 50%, #7d4e24 75%, #9e6b3b 100%);
+      padding: 10px;
+      border-radius: 6px;
+      box-shadow:
+        0 14px 28px rgba(0,0,0,0.6),
+        inset 0 2px 2px rgba(255,230,195,0.45),
+        inset 0 -3px 4px rgba(45,22,5,0.7);
+      border: 2px solid #5e3816;
+      position: relative;
+    }
+    @media (min-width: 640px) {
+      .wood-frame {
+        padding: 12px;
+      }
+    }
+
+    .wood-frame-inner {
+      border: 3px solid #693f1a;
+      box-shadow: inset 0 4px 12px rgba(0,0,0,0.65);
+      background-color: #c68e59;
+      background-image:
+        radial-gradient(#8d5728 1.3px, transparent 1.3px),
+        radial-gradient(#e2b382 1.2px, transparent 1.2px),
+        radial-gradient(#6e3f19 1px, #c68e59 1px);
+      background-size: 18px 18px, 23px 23px, 11px 11px;
+      background-position: 0 0, 7px 9px, 3px 4px;
+      position: relative;
+    }
+
+    /* Masking Tape Banner (Pink / Yellow) */
+    .pink-tape-banner {
+      background: linear-gradient(90deg, #f57cb6 0%, #f88bc0 50%, #f472b0 100%);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.22);
+      clip-path: polygon(
+        0.8% 3%, 99.2% 0%, 100% 22%, 99.3% 45%, 100% 70%, 99.1% 96%,
+        95% 100%, 4% 98%, 0% 94%, 0.7% 68%, 0% 42%, 0.9% 18%
+      );
+    }
+
+    .yellow-tape-banner {
+      background: linear-gradient(90deg, #f8d448 0%, #fae06c 50%, #f5cb39 100%);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      clip-path: polygon(
+        0.8% 2%, 99% 0%, 100% 28%, 99.1% 56%, 100% 85%, 98.8% 99%,
+        2% 100%, 0% 82%, 0.9% 52%, 0% 24%
+      );
+    }
+
+    .hotpink-submit-btn {
+      background: linear-gradient(180deg, #ef1976 0%, #d80e66 100%);
+      box-shadow: 0 5px 14px rgba(216, 14, 102, 0.45), 0 2px 4px rgba(0,0,0,0.3);
+      clip-path: polygon(
+        1.5% 4%, 98.5% 1%, 100% 25%, 98.8% 50%, 100% 75%, 98.5% 97%,
+        2% 99%, 0% 76%, 1.2% 52%, 0% 26%
+      );
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.15s ease;
+    }
+    .hotpink-submit-btn:hover {
+      transform: scale(1.06) rotate(-1deg);
+      filter: brightness(1.08);
+    }
+    .hotpink-submit-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* Translucent Scotch / Washi Tape */
+    .washi-tape {
+      background: rgba(238, 224, 189, 0.68);
+      border-left: 1px dashed rgba(170, 150, 110, 0.4);
+      border-right: 1px dashed rgba(170, 150, 110, 0.4);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      backdrop-filter: blur(1px);
+    }
+
+    .font-hand {
+      font-family: 'Patrick Hand', cursive;
+    }
+    .font-marker {
+      font-family: 'Gochi Hand', 'Patrick Hand', cursive;
+    }
+
+    /* Polaroid Frame */
+    .polaroid-card {
+      background: #fffdf9;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.32), 0 1px 3px rgba(0,0,0,0.2);
+      border: 1px solid #e6dec8;
+      transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.22s ease;
+    }
+    .polaroid-card:hover {
+      box-shadow: 0 10px 24px rgba(0,0,0,0.4);
+    }
+
+    /* Selected state for interactive survey cards */
+    .collection-card.selected {
+      outline: 3px solid #e91e78;
+      box-shadow: 0 12px 26px rgba(233, 30, 120, 0.35), 0 0 0 4px rgba(255, 255, 255, 0.9);
+      transform: translateY(-4px) rotate(0deg) !important;
+    }
+
+    .price-option-card.selected .pink-box {
+      outline: 3px solid #e91e78;
+      background-color: #ffdce8;
+      transform: scale(1.03);
+    }
+
+    .acc-checkbox-card.selected .acc-thumb {
+      outline: 2.5px solid #e91e78;
+      transform: translateY(-2px);
+    }
+
+    /* Custom Hand-drawn Radio & Checkbox */
+    .hand-radio {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #2b2623;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+    .selected .hand-radio,
+    .hand-radio.checked {
+      border-color: #e91e78;
+      background: #ffebf3;
+    }
+    .selected .hand-radio::after,
+    .hand-radio.checked::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background: #e91e78;
+      border-radius: 50%;
+    }
+
+    .hand-checkbox {
+      width: 14px;
+      height: 14px;
+      border: 1.8px solid #2b2623;
+      border-radius: 2px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      flex-shrink: 0;
+      font-size: 11px;
+      line-height: 1;
+      color: #e91e78;
+      font-weight: bold;
+    }
+    .selected .hand-checkbox {
+      border-color: #e91e78;
+      background: #ffebf3;
+    }
+
+    /* Blue brush banner for "WHAT'S INSIDE?" */
+    .blue-brush-banner {
+      background: linear-gradient(90deg, #a5b4fc 0%, #93c5fd 50%, #a5b4fc 100%);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.18);
+      clip-path: polygon(
+        1.5% 6%, 98.5% 0%, 100% 25%, 98.8% 55%, 100% 88%, 97.5% 98%,
+        3% 100%, 0% 85%, 1.2% 50%, 0% 20%
+      );
+    }
+
+    /* Image Slot Styling */
+    .img-fit-slot {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background-color: #f4dce0;
+    }
+    .img-fit-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* Enhanced Sticker Interactive & Floating Animations */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(var(--base-rot, 0deg)); }
+      50% { transform: translateY(-5px) rotate(calc(var(--base-rot, 0deg) + 3deg)); }
+    }
+    .sticker-float {
+      animation: floatSlow 4s ease-in-out infinite;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+      cursor: pointer;
+    }
+    .sticker-float:hover {
+      transform: scale(1.12) rotate(calc(var(--base-rot, 0deg) + 5deg)) translateY(-4px);
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.35));
+    }
+  </style>
+</head>
+<body class="green-wood-bg min-h-screen py-3 px-2 sm:px-4 flex flex-col items-center">
+
+  <!-- MAIN SCRAPBOOK COLUMN -->
+  <main class="w-full max-w-[680px] relative mx-auto pb-12">
+
+    <!-- ======================================================== -->
+    <!-- TOP HEADER: IVB Sticky Note + Torn Nav Bar + Retro Tape  -->
+    <!-- ======================================================== -->
+    <header class="relative flex items-center justify-between sm:justify-center pt-3 pb-4 px-1 sm:px-2 z-30">
+      
+      <!-- Top-Left Pink Sticky Note: "IVB Group 12 ♡" -->
+      <div style="--base-rot: -12deg;" class="sticker-float relative sm:absolute -left-1 sm:left-1 -top-1 z-30 transform -rotate-12 bg-[#f8bbd0] px-3 py-1.5 sm:px-3.5 sm:py-2 shadow-lg border border-[#f48fb1] text-center w-[85px] sm:w-[105px]">
+        <div class="washi-tape w-8 h-3 absolute -top-2 left-1/2 -translate-x-1/2 rotate-3"></div>
+        <div class="font-marker text-lg sm:text-2xl font-bold leading-none text-[#1f191a] tracking-wide">IVB</div>
+        <div class="font-hand text-[11px] sm:text-sm font-bold text-[#2c2224] mt-0.5">Group 12 ♡</div>
+      </div>
+
+      <!-- Center Torn Paper Navigation Strip -->
+      <nav aria-label="Main navigation" class="torn-paper torn-edge-box px-5 sm:px-12 py-1.5 sm:py-2 flex items-center justify-center gap-4 sm:gap-11 relative shadow-md z-20 mx-auto">
+        <div class="washi-tape w-3 h-6 absolute -left-1 top-1/2 -translate-y-1/2 -rotate-6"></div>
+        <div class="washi-tape w-3 h-6 absolute -right-1 top-1/2 -translate-y-1/2 rotate-6"></div>
+        <a href="#hero" class="font-hand text-sm sm:text-lg font-bold text-[#231f20] hover:text-[#e91e78] transition-colors">Home</a>
+        <a href="#inside-pouch" class="font-hand text-sm sm:text-lg font-bold text-[#231f20] hover:text-[#e91e78] transition-colors">About</a>
+        <a href="#survey-section" class="font-hand text-sm sm:text-lg font-bold text-[#231f20] hover:text-[#e91e78] transition-colors">Feedback</a>
+      </nav>
+
+      <!-- Top-Right Stickers: Smiley Face + "GOOD VIBES" Retro Cassette -->
+      <div class="relative sm:absolute right-0 sm:right-1 -top-1 flex items-center gap-1 z-30">
+        <div style="--base-rot: -6deg;" class="sticker-float w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white p-0.5 shadow-md transform -rotate-6 hidden xs:flex items-center justify-center">
+          <svg viewBox="0 0 60 60" class="w-full h-full">
+            <circle cx="30" cy="30" r="27" fill="#fcd34d" stroke="#1f191a" stroke-width="3"/>
+            <ellipse cx="21" cy="23" rx="3" ry="5" fill="#1f191a"/>
+            <ellipse cx="39" cy="23" rx="3" ry="5" fill="#1f191a"/>
+            <path d="M16 34 Q30 48 44 34" fill="none" stroke="#1f191a" stroke-width="3.2" stroke-linecap="round"/>
+            <path d="M14 33 L18 35 M42 35 L46 33" stroke="#1f191a" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div style="--base-rot: 12deg;" class="sticker-float w-18 sm:w-24 transform rotate-12 drop-shadow-[0_4px_6px_rgba(0,0,0,0.45)]">
+          <svg viewBox="0 0 130 92" class="w-full h-auto">
+            <rect x="4" y="8" width="120" height="78" rx="10" fill="#ffffff" stroke="#ffffff" stroke-width="6"/>
+            <rect x="6" y="10" width="116" height="74" rx="7" fill="#ec4899" stroke="#1e1b18" stroke-width="3.5"/>
+            <rect x="14" y="18" width="100" height="44" rx="4" fill="#fce7f3" stroke="#1e1b18" stroke-width="2.5"/>
+            <rect x="14" y="18" width="100" height="15" fill="#f43f5e" stroke="#1e1b18" stroke-width="2"/>
+            <text x="64" y="29" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="9.5" font-weight="800" fill="#fef08a" letter-spacing="0.5">GOOD VIBES</text>
+            <rect x="22" y="37" width="84" height="20" rx="10" fill="#38bdf8" stroke="#1e1b18" stroke-width="2.5"/>
+            <circle cx="38" cy="47" r="7" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+            <circle cx="38" cy="47" r="2.5" fill="#1e1b18"/>
+            <circle cx="90" cy="47" r="7" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+            <circle cx="90" cy="47" r="2.5" fill="#1e1b18"/>
+            <rect x="51" y="41" width="26" height="12" rx="2" fill="#1e1b18"/>
+            <polygon points="26,84 34,66 94,66 102,84" fill="#3b82f6" stroke="#1e1b18" stroke-width="2.5"/>
+            <circle cx="46" cy="76" r="2.5" fill="#ffffff"/>
+            <circle cx="82" cy="76" r="2.5" fill="#ffffff"/>
+            <polygon points="14,4 17,11 25,11 19,16 21,23 14,19 7,23 9,16 3,11 11,11" fill="#ec4899" stroke="#ffffff" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- ======================================================== -->
+    <!-- HERO SECTION: Wooden Framed Corkboard                    -->
+    <!-- ======================================================== -->
+    <section id="hero" class="relative mx-2 sm:mx-4 mb-5 z-20">
+      
+      <div style="--base-rot: -12deg;" class="sticker-float absolute -left-2 sm:-left-4 top-16 sm:top-20 z-30 w-8 h-8 sm:w-9 sm:h-9 transform -rotate-12 drop-shadow-md pointer-events-none">
+        <svg viewBox="0 0 50 50" class="w-full h-full">
+          <polygon points="25,3 31,17 47,18 35,29 38,45 25,36 12,45 15,29 3,18 19,17" fill="#1d4ed8" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>
+          <polygon points="25,5 30,18 45,19 34,28 37,43 25,35 13,43 16,28 5,19 20,18" fill="#2563eb" stroke="#1e1b18" stroke-width="2"/>
+        </svg>
+      </div>
+
+      <div style="--base-rot: -12deg;" class="sticker-float absolute -left-3 sm:-left-6 bottom-16 sm:bottom-20 z-30 w-9 h-11 sm:w-10 sm:h-12 transform -rotate-12 drop-shadow-md pointer-events-none">
+        <svg viewBox="0 0 50 65" class="w-full h-full">
+          <rect x="22" y="34" width="5" height="22" rx="2" fill="#fef08a" stroke="#1e1b18" stroke-width="2"/>
+          <circle cx="25" cy="22" r="16" fill="#facc15" stroke="#ffffff" stroke-width="4"/>
+          <circle cx="25" cy="22" r="15" fill="#fde047" stroke="#1e1b18" stroke-width="2.2"/>
+          <path d="M25 22 C28 18, 32 22, 27 26 C21 30, 15 24, 19 16 C23 10, 34 12, 35 22 C36 30, 24 34, 16 28" fill="none" stroke="#1e1b18" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div style="--base-rot: -6deg;" class="sticker-float absolute -left-3 sm:-left-5 bottom-2 sm:bottom-4 z-30 w-10 h-12 sm:w-12 sm:h-14 transform -rotate-6 drop-shadow-md pointer-events-none">
+        <svg viewBox="0 0 70 80" class="w-full h-full">
+          <g stroke="#ffffff" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">
+            <path d="M22 52 C22 30, 38 18, 45 10" fill="none"/>
+            <path d="M48 54 C48 34, 42 22, 45 10" fill="none"/>
+            <circle cx="20" cy="56" r="13" fill="#ffffff"/>
+            <circle cx="46" cy="58" r="13" fill="#ffffff"/>
+            <path d="M43 10 C52 6, 62 12, 54 18 C46 21, 43 14, 43 10 Z" fill="#ffffff"/>
+          </g>
+          <path d="M22 52 C22 30, 38 18, 45 10" fill="none" stroke="#15803d" stroke-width="3" stroke-linecap="round"/>
+          <path d="M48 54 C48 34, 42 22, 45 10" fill="none" stroke="#15803d" stroke-width="3" stroke-linecap="round"/>
+          <path d="M43 10 C53 5, 64 12, 55 19 C47 22, 43 14, 43 10 Z" fill="#4ade80" stroke="#1e1b18" stroke-width="2.2"/>
+          <circle cx="20" cy="56" r="12.5" fill="#e11d48" stroke="#1e1b18" stroke-width="2.5"/>
+          <path d="M14 52 A6 6 0 0 1 20 48" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <circle cx="46" cy="58" r="12.5" fill="#e11d48" stroke="#1e1b18" stroke-width="2.5"/>
+          <path d="M40 54 A6 6 0 0 1 46 50" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+
+      <!-- Wooden Corkboard Frame -->
+      <div class="wood-frame">
+        <div class="wood-frame-inner p-3 sm:p-5 grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+          
+          <div class="sm:col-span-6 flex flex-col items-center sm:items-start relative z-10">
+            <div class="flex items-center gap-6 mb-1 opacity-75 pointer-events-none self-center">
+              <span class="text-white text-xs">♡</span>
+              <svg class="w-6 h-4 text-white" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 20 L8 6 L16 14 L20 4 L24 14 L32 6 L36 20 Z"/>
+              </svg>
+              <span class="text-white text-xs">✦</span>
+            </div>
+
+            <!-- 3D Pop-Art "SEOUL POUCH" Sticker Graphic -->
+            <div class="relative w-full max-w-[270px] sm:max-w-[295px] mx-auto sm:mx-0 select-none">
+              <svg viewBox="0 0 330 205" class="w-full h-auto drop-shadow-[0_6px_10px_rgba(0,0,0,0.38)]">
+                <path d="M18 38 L255 12 L278 88 L22 115 Z" fill="#fef08a" stroke="#ffffff" stroke-width="10" stroke-linejoin="round"/>
+                <rect x="28" y="92" width="265" height="92" rx="18" transform="rotate(-3 160 135)" fill="#facc15" stroke="#ffffff" stroke-width="8"/>
+                <g transform="translate(230, 2) rotate(14)">
+                  <polygon points="6,32 2,8 17,19 28,2 38,19 52,9 46,32" fill="#facc15" stroke="#1e1b18" stroke-width="3.5" stroke-linejoin="round"/>
+                </g>
+                <g transform="translate(22, 92) rotate(-8)">
+                  <text x="4" y="6" font-family="Fredoka, Bubblegum Sans, sans-serif" font-weight="800" font-size="68" fill="#1e1b18" stroke="#1e1b18" stroke-width="11" stroke-linejoin="round" letter-spacing="1">SEOUL</text>
+                  <text x="0" y="0" font-family="Fredoka, Bubblegum Sans, sans-serif" font-weight="800" font-size="68" fill="#ec1b7c" stroke="#1e1b18" stroke-width="4" stroke-linejoin="round" letter-spacing="1">SEOUL</text>
+                  <text x="-1" y="-2" font-family="Fredoka, Bubblegum Sans, sans-serif" font-weight="800" font-size="68" fill="none" stroke="#fbcfe8" stroke-width="1.2" stroke-dasharray="12 28" letter-spacing="1">SEOUL</text>
+                </g>
+                <g transform="translate(52, 165) rotate(-3)">
+                  <text x="4" y="5" font-family="Fredoka, Bubblegum Sans, sans-serif" font-weight="800" font-size="60" fill="#1e3a8a" stroke="#1e1b18" stroke-width="10" stroke-linejoin="round" letter-spacing="1">POUCH</text>
+                  <text x="0" y="0" font-family="Fredoka, Bubblegum Sans, sans-serif" font-weight="800" font-size="60" fill="#1d4ed8" stroke="#1e1b18" stroke-width="3.5" stroke-linejoin="round" letter-spacing="1">POUCH</text>
+                </g>
+                <g transform="translate(12, 125) rotate(-12)">
+                  <polygon points="22,2 28,15 42,17 31,26 34,40 22,33 10,40 13,26 2,17 16,15" fill="#facc15" stroke="#1e1b18" stroke-width="3" stroke-linejoin="round"/>
+                </g>
+                <g transform="translate(278, 65) rotate(12)">
+                  <polygon points="18,0 23,11 35,12 26,20 29,32 18,26 7,32 10,20 1,12 13,11" fill="#ffffff" stroke="#ffffff" stroke-width="5" stroke-linejoin="round"/>
+                  <polygon points="18,2 23,11 34,12 25,20 28,31 18,25 8,31 11,20 2,12 13,11" fill="#2563eb" stroke="#1e1b18" stroke-width="2.5" stroke-linejoin="round"/>
+                  <circle cx="18" cy="17" r="3.5" fill="#fde047" stroke="#1e1b18" stroke-width="1.5"/>
+                </g>
+                <g transform="translate(288, 138) rotate(18)">
+                  <polygon points="12,1 15,8 23,9 17,14 19,22 12,18 5,22 7,14 1,9 9,8" fill="#facc15" stroke="#1e1b18" stroke-width="2.2" stroke-linejoin="round"/>
+                </g>
+              </svg>
+            </div>
+
+            <div class="yellow-tape-banner px-4 py-1.5 mt-1 transform -rotate-2 shadow-md self-center sm:self-start">
+              <p class="font-hand text-base sm:text-[19px] font-bold text-[#1f191a] tracking-wide whitespace-nowrap">
+                One Pouch. Multiple Moods. <span class="text-[#1f191a]">♡</span>
+              </p>
+            </div>
+
+            <div class="torn-paper torn-edge-box px-4 py-2 mt-2.5 transform rotate-1 shadow-md text-center w-full max-w-[275px] self-center sm:self-start">
+              <p class="font-hand text-xs sm:text-[14px] leading-tight text-[#2b2523] font-semibold">
+                Korean-inspired accessories, curated<br/>
+                for your everyday stories. <span class="text-[#e11d48]">♡</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="sm:col-span-6 relative flex justify-center items-center py-2">
+            <div class="polaroid-card p-2.5 pb-6 w-full max-w-[250px] sm:max-w-[270px] transform rotate-3 relative z-10">
+              <div class="absolute -top-3.5 right-12 sm:right-16 z-30 w-7 h-7 drop-shadow-md pointer-events-none">
+                <svg viewBox="0 0 36 36">
+                  <ellipse cx="18" cy="30" rx="5" ry="2.5" fill="rgba(0,0,0,0.35)"/>
+                  <path d="M18 22 L17 31" stroke="#9ca3af" stroke-width="2.2" stroke-linecap="round"/>
+                  <circle cx="19" cy="16" r="7" fill="#dc2626" stroke="#7f1d1d" stroke-width="1.5"/>
+                  <ellipse cx="18" cy="10" rx="8.5" ry="5.5" fill="#ef4444" stroke="#991b1b" stroke-width="1.5"/>
+                  <ellipse cx="15" cy="8.5" rx="3.5" ry="1.8" fill="#fca5a5"/>
+                </svg>
+              </div>
+
+              <div class="absolute -top-2 right-2 z-30 w-8 h-8 transform rotate-12 drop-shadow-md pointer-events-none">
+                <svg viewBox="0 0 40 40">
+                  <path d="M20 35 C20 35 4 24 4 13 C4 6 10 3 15 5 C18 6 20 9 20 9 C20 9 22 6 25 5 C30 3 36 6 36 13 C36 24 20 35 20 35 Z" fill="#ec4899" stroke="#db2777" stroke-width="1.5"/>
+                  <path d="M10 12 A5 5 0 0 1 15 8" stroke="#fbcfe8" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+                </svg>
+              </div>
+
+              <!-- Replaced Hero Polaroid Image with https://i.postimg.cc/C5ZjhXMs/image.png -->
+              <div class="w-full aspect-[4/3.8] rounded-sm overflow-hidden bg-gradient-to-br from-[#f3e5d8] via-[#edd6c7] to-[#e2c2b3] relative shadow-inner border border-[#e5d5c5]">
+                <img src="https://i.postimg.cc/C5ZjhXMs/image.png" alt="Seoul Pouch Collection" class="w-full h-full object-cover" />
+              </div>
+            </div>
+
+            <div class="absolute -right-2 sm:-right-6 top-5 z-30 bg-[#bfe3dc] px-2.5 py-2.5 shadow-lg border border-[#99c9bf] transform rotate-12 w-[110px] sm:w-[128px]">
+              <div class="font-hand text-[11px] sm:text-[13px] leading-snug text-[#1f2937] font-bold space-y-0.5">
+                <div class="flex items-center gap-1"><span class="text-[#ec1b7c] border border-[#ec1b7c] rounded-[2px] px-0.5 text-[9px] leading-none">✓</span> Same You</div>
+                <div class="flex items-center gap-1"><span class="text-[#ec1b7c] border border-[#ec1b7c] rounded-[2px] px-0.5 text-[9px] leading-none">✓</span> Different Mood</div>
+                <div class="flex items-center gap-1"><span class="text-[#ec1b7c] border border-[#ec1b7c] rounded-[2px] px-0.5 text-[9px] leading-none">✓</span> More Style <span class="text-[#e11d48]">♡</span></div>
+              </div>
+            </div>
+
+            <div style="--base-rot: -6deg;" class="sticker-float absolute -right-2 sm:-right-5 bottom-1 z-30 w-20 h-18 sm:w-28 sm:h-24 drop-shadow-[0_5px_8px_rgba(0,0,0,0.45)] pointer-events-none">
+              <svg viewBox="0 0 120 100" class="w-full h-full">
+                <polygon points="60,4 73,24 98,10 89,35 116,42 94,58 112,78 84,76 85,96 62,82 42,97 44,76 15,82 32,60 8,46 35,38 24,14 49,26" fill="#ffffff" stroke="#ffffff" stroke-width="5" stroke-linejoin="round"/>
+                <polygon points="60,7 72,26 96,13 87,36 113,43 92,58 109,76 83,74 84,93 62,80 43,94 45,74 18,80 34,59 12,46 37,39 27,17 50,28" fill="#ec1b7c" stroke="#1e1b18" stroke-width="2.8" stroke-linejoin="round"/>
+                <text x="61" y="58" text-anchor="middle" font-family="Patrick Hand, Fredoka, sans-serif" font-weight="800" font-size="22" fill="#ffffff" letter-spacing="1">2026</text>
+              </svg>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 1: "WHAT'S INSIDE?"                              -->
+    <!-- ======================================================== -->
+    <section id="inside-pouch" class="relative mx-2 sm:mx-4 mb-6 z-20">
+      <div class="washi-tape w-12 h-4 absolute -top-1 right-2 z-30 transform rotate-25"></div>
+
+      <div style="--base-rot: -12deg;" class="sticker-float absolute -left-2 -bottom-2 z-30 w-9 h-9 transform -rotate-12 drop-shadow pointer-events-none">
+        <svg viewBox="0 0 45 45">
+          <polygon points="22,3 28,15 42,17 32,26 35,40 22,33 9,40 12,26 2,17 16,15" fill="#f8fafc" stroke="#1e1b18" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="torn-paper torn-edge-box pt-5 pb-5 pl-7 pr-3 sm:pl-11 sm:pr-5 relative">
+        <div class="notebook-holes" aria-hidden="true">
+          <div class="notebook-hole"></div><div class="notebook-hole"></div><div class="notebook-hole"></div><div class="notebook-hole"></div><div class="notebook-hole"></div><div class="notebook-hole"></div><div class="notebook-hole"></div><div class="notebook-hole"></div><div class="notebook-hole"></div><div class="notebook-hole"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+          <div class="md:col-span-5 relative flex flex-col items-center sm:items-start">
+            <div class="blue-brush-banner px-5 py-1 transform -rotate-3 shadow-sm z-20 ml-2">
+              <h2 class="font-marker text-xl sm:text-[25px] font-bold text-[#1e3a8a] tracking-wider uppercase leading-none">
+                WHAT'S INSIDE?
+              </h2>
+            </div>
+
+            <div class="bg-[#fdfbf7] border border-[#e5dec9] shadow-md px-4 py-2.5 -mt-1 transform -rotate-2 z-10 w-full max-w-[240px] text-center">
+              <p class="font-hand text-[14.5px] sm:text-[15.5px] leading-snug text-[#231f20] font-bold">
+                Each Seoul Pouch includes<br/>
+                <span class="text-[#e11d48] font-extrabold">8</span> coordinated accessories<br/>
+                in a cute, reusable pouch! <span class="text-[#e11d48]">♡</span>
+              </p>
+            </div>
+
+            <div class="relative w-full max-w-[235px] mt-2 flex items-center justify-start">
+              <div class="w-[170px] sm:w-[195px] transform -rotate-6 drop-shadow-[0_10px_14px_rgba(0,0,0,0.3)] -ml-2">
+                <svg viewBox="0 0 190 165" class="w-full h-auto">
+                  <defs>
+                    <linearGradient id="pouchPinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#f9cdd5"/>
+                      <stop offset="50%" stop-color="#f1b2be"/>
+                      <stop offset="100%" stop-color="#dc93a2"/>
+                    </linearGradient>
+                  </defs>
+                  <ellipse cx="14" cy="48" rx="6" ry="14" fill="#d4af37" stroke="#92400e" stroke-width="1.5" transform="rotate(15 14 48)"/>
+                  <rect x="16" y="10" width="160" height="142" rx="24" fill="url(#pouchPinkGrad)" stroke="#e298a7" stroke-width="2.5"/>
+                  <rect x="23" y="17" width="146" height="128" rx="19" fill="none" stroke="#fbe4e9" stroke-width="1.3" stroke-dasharray="3 2"/>
+                  <path d="M35 32 Q48 26 52 38 M32 45 Q28 35 40 30" stroke="#cf7f8f" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <path d="M155 32 Q142 26 138 38 M158 45 Q162 35 150 30" stroke="#cf7f8f" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <path d="M35 130 Q48 136 52 124 M32 117 Q28 127 40 132" stroke="#cf7f8f" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <path d="M155 130 Q142 136 138 124 M158 117 Q162 127 150 132" stroke="#cf7f8f" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <text x="96" y="78" text-anchor="middle" font-family="Georgia, serif" font-size="25" font-weight="bold" fill="#c77788" letter-spacing="2">IVB</text>
+                  <text x="96" y="95" text-anchor="middle" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#c77788" letter-spacing="2.5">GROUP 12</text>
+                </svg>
+              </div>
+
+              <div class="flex flex-col items-center gap-3 -ml-1">
+                <svg class="w-9 h-9 transform rotate-6 drop-shadow" viewBox="0 0 40 40">
+                  <path d="M20 34 C20 34 5 24 5 13 C5 7 10 4 15 4 C18 4 20 6 20 8 C20 6 22 4 25 4 C30 4 35 7 35 13 C35 24 20 34 20 34 Z" fill="#ffffff" stroke="#ffffff" stroke-width="4"/>
+                  <path d="M20 34 C20 34 5 24 5 13 C5 7 10 4 15 4 C18 4 20 6 20 8 C20 6 22 4 25 4 C30 4 35 7 35 13 C35 24 20 34 20 34 Z" fill="#f472b6" stroke="#1e1b18" stroke-width="2.2"/>
+                </svg>
+                <svg class="w-8 h-8 transform -rotate-12 drop-shadow" viewBox="0 0 40 40">
+                  <polygon points="20,3 25,14 37,15 28,23 31,35 20,29 9,35 12,23 3,15 15,14" fill="#facc15" stroke="#1e1b18" stroke-width="2.2" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="md:col-span-7 grid grid-cols-4 gap-2 sm:gap-2.5">
+            <div class="polaroid-card p-1.5 pb-2 text-center rounded-[2px]">
+              <div class="bg-[#f3dce0] aspect-square w-full overflow-hidden flex items-center justify-center">
+                <svg viewBox="0 0 90 90" class="w-full h-full">
+                  <g transform="translate(27, 46) rotate(-8)">
+                    <path d="M0 -24 C-3 -32, 5 -32, 2 -24" stroke="#d97706" stroke-width="1.8" fill="none"/>
+                    <circle cx="0" cy="-20" r="3.5" fill="#f472b6"/>
+                    <g fill="#f472b6" stroke="#ec4899" stroke-width="0.8">
+                      <circle cx="0" cy="-10" r="6.5"/><circle cx="9" cy="-3" r="6.5"/><circle cx="6" cy="8" r="6.5"/><circle cx="-6" cy="8" r="6.5"/><circle cx="-9" cy="-3" r="6.5"/>
+                    </g>
+                    <circle cx="0" cy="0" r="5" fill="#facc15"/>
+                  </g>
+                  <g transform="translate(63, 42) rotate(6)">
+                    <path d="M0 -24 C-3 -32, 5 -32, 2 -24" stroke="#d97706" stroke-width="1.8" fill="none"/>
+                    <circle cx="0" cy="-20" r="3.5" fill="#f472b6"/>
+                    <g fill="#f472b6" stroke="#ec4899" stroke-width="0.8">
+                      <circle cx="0" cy="-10" r="6.5"/><circle cx="9" cy="-3" r="6.5"/><circle cx="6" cy="8" r="6.5"/><circle cx="-6" cy="8" r="6.5"/><circle cx="-9" cy="-3" r="6.5"/>
+                    </g>
+                    <circle cx="0" cy="0" r="5" fill="#facc15"/>
+                  </g>
+                </svg>
+              </div>
+              <p class="font-hand text-[10px] sm:text-xs font-bold text-[#231f20] mt-1 leading-none">Earrings</p>
+            </div>
+
+            <div class="polaroid-card p-1.5 pb-2 text-center rounded-[2px]">
+              <div class="bg-[#f3dce0] aspect-square w-full overflow-hidden flex items-center justify-center">
+                <svg viewBox="0 0 90 90" class="w-full h-full">
+                  <path d="M12 10 C14 52, 76 52, 78 10" fill="none" stroke="#f472b6" stroke-width="6" stroke-dasharray="4 6" stroke-linecap="round"/>
+                  <path d="M12 10 C14 52, 76 52, 78 10" fill="none" stroke="#60a5fa" stroke-width="6" stroke-dasharray="3 9" stroke-dashoffset="4" stroke-linecap="round"/>
+                  <path d="M12 10 C14 52, 76 52, 78 10" fill="none" stroke="#facc15" stroke-width="6" stroke-dasharray="3 11" stroke-dashoffset="8" stroke-linecap="round"/>
+                  <circle cx="45" cy="46" r="2.5" fill="#eab308"/>
+                  <path d="M45 64 C45 64 34 56 34 50 C34 46 38 45 41 47 C43 48 45 50 45 50 C45 50 47 48 49 47 C52 45 56 46 56 50 C56 56 45 64 45 64 Z" fill="#f9a8d4" stroke="#db2777" stroke-width="1.8"/>
+                </svg>
+              </div>
+              <p class="font-hand text-[10px] sm:text-xs font-bold text-[#231f20] mt-1 leading-none">Necklace</p>
+            </div>
+
+            <div class="polaroid-card p-1.5 pb-2 text-center rounded-[2px]">
+              <div class="bg-[#f3dce0] aspect-square w-full overflow-hidden flex items-center justify-center">
+                <svg viewBox="0 0 90 90" class="w-full h-full">
+                  <ellipse cx="45" cy="48" rx="28" ry="15" fill="none" stroke="#b45309" stroke-width="6" opacity="0.25"/>
+                  <ellipse cx="45" cy="45" rx="27" ry="14" fill="none" stroke="#f59e0b" stroke-width="5"/>
+                  <ellipse cx="45" cy="45" rx="27" ry="14" fill="none" stroke="#fde68a" stroke-width="2"/>
+                  <path d="M45 64 C45 64 29 53 29 45 C29 39 35 37 40 40 C43 42 45 45 45 45 C45 45 47 42 50 40 C55 37 61 39 61 45 C61 53 45 64 45 64 Z" fill="#f472b6" stroke="#d97706" stroke-width="2.5"/>
+                  <path d="M35 44 A4 4 0 0 1 40 42" stroke="#fbcfe8" stroke-width="2" fill="none" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <p class="font-hand text-[10px] sm:text-xs font-bold text-[#231f20] mt-1 leading-none">Ring</p>
+            </div>
+
+            <div class="polaroid-card p-1.5 pb-2 text-center rounded-[2px]">
+              <div class="bg-[#f3dce0] aspect-square w-full overflow-hidden flex items-center justify-center">
+                <svg viewBox="0 0 90 90" class="w-full h-full">
+                  <ellipse cx="45" cy="46" rx="31" ry="22" fill="none" stroke="#ec4899" stroke-width="8" stroke-dasharray="5 6" stroke-linecap="round"/>
+                  <ellipse cx="45" cy="46" rx="31" ry="22" fill="none" stroke="#3b82f6" stroke-width="8" stroke-dasharray="4 9" stroke-dashoffset="4" stroke-linecap="round"/>
+                  <ellipse cx="45" cy="46" rx="31" ry="22" fill="none" stroke="#4ade80" stroke-width="8" stroke-dasharray="4 11" stroke-dashoffset="8" stroke-linecap="round"/>
+                  <circle cx="45" cy="67" r="8.5" fill="#facc15" stroke="#ca8a04" stroke-width="1.2"/>
+                  <circle cx="42.5" cy="65" r="1.2" fill="#1e1b18"/>
+                  <circle cx="47.5" cy="65" r="1.2" fill="#1e1b18"/>
+                  <path d="M41.5 68.5 Q45 72 48.5 68.5" fill="none" stroke="#1e1b18" stroke-width="1.3" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <p class="font-hand text-[10px] sm:text-xs font-bold text-[#231f20] mt-1 leading-none">Bracelet</p>
+            </div>
+
+            <div class="polaroid-card p-1.5 pb-2 text-center rounded-[2px]">
+              <div class="bg-[#f3dce0] aspect-square w-full overflow-hidden flex items-center justify-center">
+                <svg viewBox="0 0 90 90" class="w-full h-full">
+                  <g transform="translate(45, 45)">
+                    <circle cx="0" cy="0" r="32" fill="#e87993" stroke="#be4b68" stroke-width="1.5"/>
+                    <path d="M-30 -6 Q-14 -16 -9 -5 M-20 -24 Q-6 -26 -2 -9 M6 -30 Q14 -18 5 -9 M26 -18 Q18 -6 9 -4 M30 6 Q16 12 9 3 M18 26 Q8 16 4 9 M-6 30 Q-4 18 -2 10 M-24 20 Q-14 10 -8 5" stroke="#fbcfe8" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <path d="M-26 6 Q-14 2 -10 0 M-12 -28 Q-4 -16 -3 -10 M20 -24 Q10 -12 7 -7 M26 16 Q14 8 8 5" stroke="#be4b68" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <circle cx="0" cy="0" r="9" fill="#f3dce0" stroke="#be4b68" stroke-width="2"/>
+                  </g>
+                </svg>
+              </div>
+              <p class="font-hand text-[10px] sm:text-xs font-bold text-[#231f20] mt-1 leading-none">Scrunchie</p>
+            </div>
+
+            <div class="polaroid-card p-1.5 pb-2 text-center rounded-[2px]">
+              <div class="bg-[#f3dce0] aspect-square w-full overflow-hidden flex items-center justify-center">
+                <svg viewBox="0 0 90 90" class="w-full h-full">
+                  <g transform="translate(36, 38) rotate(-32)">
+                    <rect x="-24" y="-7" width="48" height="14" rx="7" fill="#f472b6" stroke="#db2777" stroke-width="1.2"/>
+                    <circle cx="-11" cy="0" r="5" fill="#fbcfe8"/>
+                    <circle cx="-11" cy="0" r="2" fill="#facc15"/>
+                  </g>
+                  <g transform="translate(52, 52) rotate(-32)">
+                    <rect x="-24" y="-7" width="48" height="14" rx="7" fill="#fb7185" stroke="#e11d48" stroke-width="1.2"/>
+                    <circle cx="-10" cy="0" r="4" fill="#fef08a"/>
+                    <circle cx="4" cy="0" r="3.5" fill="#fff"/>
+                  </g>
+                </svg>
+              </div>
+              <p class="font-hand text-[10px] sm:text-xs font-bold text-[#231f20] mt-1 leading-none">Hair Clips</p>
+            </div>
+
+            <div class="polaroid-card p-1.5 pb-2 text-center rounded-[2px]">
+              <div class="bg-[#f3dce0] aspect-square w-full overflow-hidden flex items-center justify-center">
+                <svg viewBox="0 0 90 90" class="w-full h-full">
+                  <circle cx="48" cy="16" r="6" fill="none" stroke="#d97706" stroke-width="2.5"/>
+                  <path d="M52 22 C68 38, 72 68, 56 74 C44 78, 46 45, 50 22" fill="none" stroke="#ffffff" stroke-width="5" stroke-dasharray="1 6" stroke-linecap="round"/>
+                  <path d="M26 56 C28 40, 38 30, 46 22" fill="none" stroke="#15803d" stroke-width="2"/>
+                  <path d="M40 58 C40 42, 42 32, 46 22" fill="none" stroke="#15803d" stroke-width="2"/>
+                  <circle cx="25" cy="60" r="8.5" fill="#dc2626"/>
+                  <circle cx="22" cy="57" r="2" fill="#fca5a5"/>
+                  <circle cx="39" cy="62" r="8.5" fill="#b91c1c"/>
+                  <circle cx="36" cy="59" r="2" fill="#fca5a5"/>
+                </svg>
+              </div>
+              <p class="font-hand text-[9px] sm:text-[11px] font-bold text-[#231f20] mt-1 leading-none">Bag Charm</p>
+            </div>
+
+            <div class="polaroid-card p-1.5 pb-2 text-center rounded-[2px]">
+              <div class="bg-[#f3dce0] aspect-square w-full overflow-hidden flex items-center justify-center">
+                <svg viewBox="0 0 90 90" class="w-full h-full">
+                  <rect x="14" y="14" width="62" height="62" rx="11" fill="#f4acb7" stroke="#d88290" stroke-width="2"/>
+                  <rect x="18" y="18" width="54" height="54" rx="8" fill="none" stroke="#e598a4" stroke-width="1" stroke-dasharray="2 2"/>
+                  <text x="45" y="44" text-anchor="middle" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#b56576">IVB</text>
+                  <text x="45" y="53" text-anchor="middle" font-family="Georgia, serif" font-size="5" font-weight="bold" fill="#b56576" letter-spacing="1">GROUP 12</text>
+                </svg>
+              </div>
+              <p class="font-hand text-[10px] sm:text-xs font-bold text-[#231f20] mt-1 leading-none">Pouch</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 2: "A LITTLE THANK-YOU FROM SEOUL POUCH! ♡"      -->
+    <!-- ======================================================== -->
+    <section id="thank-you-perks" class="relative mx-2 sm:mx-4 mb-6 z-20">
+      <div class="flex justify-center relative -mb-3 z-30">
+        <div class="pink-tape-banner px-4 sm:px-7 py-1.5 transform -rotate-1 shadow-md text-center">
+          <h2 class="font-hand text-base sm:text-[23px] font-bold text-[#1e1b18] tracking-wide uppercase">
+            A LITTLE THANK-YOU FROM SEOUL POUCH! <span class="text-[#1e1b18]">♡</span>
+          </h2>
+        </div>
+      </div>
+
+      <div class="washi-tape w-10 h-4 absolute top-4 -right-2 z-30 transform rotate-12"></div>
+
+      <div class="torn-paper torn-edge-box pt-5 pb-4 pl-7 pr-3 sm:pl-11 sm:pr-5 relative">
+        <div class="notebook-holes" aria-hidden="true">
+          <div class="notebook-hole"></div><div class="notebook-hole"></div><div class="notebook-hole"></div><div class="notebook-hole"></div><div class="notebook-hole"></div><div class="notebook-hole"></div><div class="notebook-hole"></div><div class="notebook-hole"></div>
+        </div>
+
+        <div class="text-center mb-3 relative">
+          <svg class="w-6 h-6 absolute left-2 top-1 text-[#f472b6]" viewBox="0 0 32 32" fill="currentColor" stroke="#1e1b18" stroke-width="1.8">
+            <path d="M16 26 C16 26 5 18 5 10 C5 6 9 4 12 6 C14 7 16 10 16 10 C16 10 18 7 20 6 C23 4 27 6 27 10 C27 18 16 26 16 26 Z"/>
+          </svg>
+          <p class="font-hand text-xs sm:text-[14.5px] font-bold text-[#2b2523] leading-snug">
+            Help us create accessories you'll actually love!<br/>
+            Complete our quick 2-minute feedback survey and:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
+          <div class="bg-[#fbf6ec] border border-[#e6dec8] p-2 rounded-[2px] shadow-sm flex flex-col items-center text-center relative">
+            <div class="w-full aspect-[4/2.7] bg-gradient-to-br from-[#fce7f3] to-[#f9a8d4] rounded-sm overflow-hidden flex items-center justify-center relative border border-[#f5d0fe]">
+              <svg viewBox="0 0 180 120" class="w-full h-full">
+                <rect width="180" height="120" fill="#f4dce0"/>
+                <g transform="translate(38, 12) rotate(-6)">
+                  <rect x="0" y="0" width="48" height="92" rx="7" fill="#1e1b18"/>
+                  <rect x="3" y="3" width="42" height="86" rx="5" fill="#fbcfe8"/>
+                  <rect x="17" y="5" width="14" height="3" rx="1.5" fill="#1e1b18"/>
+                  <path d="M24 42 C16 32, 8 35, 10 44 C12 52, 20 48, 24 44 Z" fill="#ec4899"/>
+                  <path d="M24 42 C32 32, 40 35, 38 44 C36 52, 28 48, 24 44 Z" fill="#ec4899"/>
+                  <path d="M22 44 L15 58 M26 44 L33 58" stroke="#db2777" stroke-width="2.5" stroke-linecap="round"/>
+                  <circle cx="24" cy="43" r="3" fill="#be185d"/>
+                </g>
+                <g transform="translate(92, 16) rotate(6)">
+                  <rect x="0" y="0" width="48" height="92" rx="7" fill="#1e1b18"/>
+                  <rect x="3" y="3" width="42" height="86" rx="5" fill="#fce7f3"/>
+                  <rect x="17" y="5" width="14" height="3" rx="1.5" fill="#1e1b18"/>
+                  <g transform="translate(24, 48)" fill="#f472b6">
+                    <circle cx="0" cy="-8" r="5"/><circle cx="8" cy="-2" r="5"/><circle cx="5" cy="7" r="5"/><circle cx="-5" cy="7" r="5"/><circle cx="-8" cy="-2" r="5"/>
+                    <circle cx="0" cy="0" r="4" fill="#facc15"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <div class="flex items-center gap-1.5 mt-2">
+              <span class="w-6 h-6 rounded-full bg-[#ec4899] text-white inline-flex items-center justify-center text-xs font-bold shadow-sm flex-shrink-0">↓</span>
+              <p class="font-hand text-xs sm:text-[13px] font-bold text-[#231f20] leading-tight text-left">
+                Get a <span class="text-[#ec1b7c] font-extrabold">FREE</span><br/>
+                Korean aesthetic<br/>
+                phone wallpaper! <span class="text-[#e11d48]">♡</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-[#fbf6ec] border border-[#e6dec8] p-2 rounded-[2px] shadow-sm flex flex-col items-center text-center relative">
+            <div class="w-full aspect-[4/2.7] bg-gradient-to-br from-[#fce7f3] to-[#fbcfe8] rounded-sm overflow-hidden flex items-center justify-center relative border border-[#f5d0fe]">
+              <svg viewBox="0 0 180 120" class="w-full h-full">
+                <rect width="180" height="120" fill="#f5dce0"/>
+                <circle cx="34" cy="64" r="14" fill="#f9a8d4" opacity="0.7"/>
+                <circle cx="144" cy="56" r="18" fill="#f472b6" opacity="0.6"/>
+                <g transform="translate(52, 22) rotate(-5)">
+                  <rect x="0" y="0" width="72" height="66" rx="12" fill="#f4acb7" stroke="#d88290" stroke-width="2"/>
+                  <text x="36" y="33" text-anchor="middle" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#b56576">IVB</text>
+                  <text x="36" y="42" text-anchor="middle" font-family="Georgia, serif" font-size="5" font-weight="bold" fill="#b56576">GROUP 12</text>
+                </g>
+                <polygon points="42,26 38,12 48,18 54,8 60,18 70,12 66,26" fill="#facc15" stroke="#1e1b18" stroke-width="2" stroke-linejoin="round" transform="rotate(-15 54 18)"/>
+              </svg>
+            </div>
+            <div class="flex items-center gap-2 mt-2">
+              <svg class="w-7 h-7 flex-shrink-0" viewBox="0 0 36 36">
+                <rect x="6" y="15" width="24" height="17" rx="2" fill="#f472b6" stroke="#1e1b18" stroke-width="2"/>
+                <rect x="4" y="10" width="28" height="6" rx="1.5" fill="#ec4899" stroke="#1e1b18" stroke-width="2"/>
+                <rect x="16" y="10" width="4" height="22" fill="#facc15" stroke="#1e1b18" stroke-width="1.5"/>
+                <path d="M18 10 C12 3, 8 7, 13 10 M18 10 C24 3, 28 7, 23 10" fill="none" stroke="#1e1b18" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <p class="font-hand text-xs sm:text-[13px] font-bold text-[#231f20] leading-tight text-left">
+                Enter our lucky draw<br/>
+                to <span class="text-[#ec1b7c] font-extrabold">WIN</span> a Seoul Pouch!
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-[#fbf6ec] border border-[#e6dec8] p-2 rounded-[2px] shadow-sm flex flex-col items-center text-center relative">
+            <div class="w-full aspect-[4/2.7] bg-[#fdf4f5] rounded-sm overflow-hidden flex items-center justify-center relative border border-[#f3d8dc]">
+              <svg viewBox="0 0 180 120" class="w-full h-full">
+                <g transform="translate(72, 64) rotate(-22)">
+                  <path d="M-28 -8 L16 -24 L16 24 L-28 8 Z" fill="#fb7185" stroke="#1e1b18" stroke-width="2.5" stroke-linejoin="round"/>
+                  <ellipse cx="16" cy="0" rx="6" ry="24" fill="#fda4af" stroke="#1e1b18" stroke-width="2.5"/>
+                  <rect x="-36" y="-6" width="10" height="12" rx="3" fill="#f43f5e" stroke="#1e1b18" stroke-width="2.2"/>
+                  <path d="M-22 8 L-16 24 L-8 22 L-14 8" fill="#f43f5e" stroke="#1e1b18" stroke-width="2.2" stroke-linejoin="round"/>
+                </g>
+                <path d="M135 72 C135 72 125 65 125 59 C125 55 129 54 132 56 C134 57 135 59 135 59 C135 59 136 57 138 56 C141 54 145 55 145 59 C145 65 135 72 135 72 Z" fill="#f472b6" stroke="#1e1b18" stroke-width="1.8"/>
+                <polygon points="158,82 160,87 166,88 161,92 162,97 158,94 153,97 154,92 150,88 155,87" fill="#facc15" stroke="#1e1b18" stroke-width="1.5"/>
+                <polygon points="122,22 124,27 129,27 125,30 126,35 122,32 118,35 119,30 115,27 120,27" fill="#ec4899" stroke="#1e1b18" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <div class="flex items-center gap-2 mt-2">
+              <svg class="w-7 h-7 flex-shrink-0 transform -rotate-6" viewBox="0 0 36 36">
+                <rect x="4" y="8" width="28" height="20" rx="2" fill="#fde047" stroke="#1e1b18" stroke-width="2"/>
+                <path d="M4 9 L18 20 L32 9" fill="none" stroke="#1e1b18" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+              <p class="font-hand text-xs sm:text-[13px] font-bold text-[#231f20] leading-tight text-left">
+                Be among the<br/>
+                first to know<br/>
+                when we launch!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="yellow-tape-banner w-full py-1.5 px-3 text-center shadow-sm">
+          <p class="font-hand text-xs sm:text-[14.5px] font-bold text-[#1e1b18]">
+            Your opinion helps us bring this little idea to life. Thank you for being part of our journey! <span class="text-[#e11d48]">♡</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- INTERACTIVE FEEDBACK SURVEY FORM                         -->
+    <!-- ======================================================== -->
+    <form id="survey-section" onsubmit="handleFeedbackSubmit(event)" class="space-y-6 relative z-20">
+
+      <!-- QUESTION 1 -->
+      <section class="relative mx-2 sm:mx-4">
+        <div class="yellow-tape-banner inline-block px-4 sm:px-5 py-1.5 relative -mb-2 ml-1 z-30 transform -rotate-1">
+          <h3 class="font-hand text-base sm:text-[22px] font-bold text-[#1e1b18]">
+            1. Which <span class="underline decoration-[#1e1b18]/40">collection</span> matches your vibe the most?
+          </h3>
+        </div>
+
+        <div class="absolute right-2 -top-1 z-30 pointer-events-none">
+          <svg class="w-8 h-8 sm:w-10 sm:h-10 drop-shadow-md transform rotate-6" viewBox="0 0 50 50">
+            <polygon points="25,3 31,17 47,18 35,29 38,45 25,36 12,45 15,29 3,18 19,17" fill="#ffffff" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>
+            <polygon points="25,5 30,18 45,19 34,28 37,43 25,35 13,43 16,28 5,19 20,18" fill="#1e40af" stroke="#1e1b18" stroke-width="2"/>
+          </svg>
+        </div>
+
+        <div class="absolute -right-3 top-1/2 -translate-y-1/2 z-30 w-7 h-7 sm:w-8 sm:h-8 transform rotate-12 drop-shadow pointer-events-none">
+          <svg viewBox="0 0 40 40">
+            <path d="M20 34 C20 34 5 24 5 13 C5 7 10 4 15 4 C18 4 20 6 20 8 C20 6 22 4 25 4 C30 4 35 7 35 13 C35 24 20 34 20 34 Z" fill="#ffffff" stroke="#ffffff" stroke-width="4"/>
+            <path d="M20 34 C20 34 5 24 5 13 C5 7 10 4 15 4 C18 4 20 6 20 8 C20 6 22 4 25 4 C30 4 35 7 35 13 C35 24 20 34 20 34 Z" fill="#f472b6" stroke="#1e1b18" stroke-width="2"/>
+          </svg>
+        </div>
+
+        <div class="absolute -left-4 bottom-3 z-30 w-10 h-10 sm:w-12 sm:h-12 transform -rotate-12 drop-shadow-md pointer-events-none">
+          <svg viewBox="0 0 50 50">
+            <polygon points="25,3 31,17 47,18 35,29 38,45 25,36 12,45 15,29 3,18 19,17" fill="#ffffff" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>
+            <polygon points="25,5 30,18 45,19 34,28 37,43 25,35 13,43 16,28 5,19 20,18" fill="#eab308" stroke="#1e1b18" stroke-width="2.2"/>
+          </svg>
+        </div>
+
+        <div class="torn-paper torn-edge-box pt-4 pb-5 px-3 sm:px-5 relative">
+          <div class="bg-[#fbf7ec] inline-block px-3 py-0.5 mb-3 ml-2 shadow-sm border border-[#e6dec8] transform -rotate-1">
+            <p class="font-hand text-xs sm:text-sm font-bold text-[#2b2523]">
+              Three moods. One pouch. Which one is yours? <span class="text-[#e11d48]">♡</span>
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-3 pt-2">
+            <div onclick="selectCollection('Seoul Pop (₹499)', this)" class="collection-card selected polaroid-card p-2 pb-3 rounded-[2px] cursor-pointer relative transform -rotate-1">
+              <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 z-20 w-6 h-6 drop-shadow">
+                <svg viewBox="0 0 32 32"><circle cx="16" cy="14" r="6" fill="#dc2626"/><ellipse cx="15" cy="9" rx="7" ry="4.5" fill="#ef4444"/><ellipse cx="13" cy="8" rx="2.5" ry="1.2" fill="#fca5a5"/></svg>
+              </div>
+              <div class="img-fit-slot aspect-[4/3.1] border border-[#f3c6d3]">
+                <img src="https://i.postimg.cc/nVYxTrHZ/image.png" alt="Seoul Pop"/>
+              </div>
+              <div class="pink-tape-banner mx-auto -mt-3.5 relative z-10 px-4 py-0.5 w-fit shadow">
+                <span class="font-hand text-sm sm:text-[15px] font-bold text-white tracking-wider uppercase">SEOUL POP</span>
+              </div>
+              <p class="font-hand text-xs text-center text-[#37302e] mt-1">Cute, colourful &amp; playful</p>
+              <div class="flex items-center justify-between mt-1.5 px-1">
+                <div class="flex items-center gap-1"><span class="hand-radio" aria-hidden="true"></span><span class="text-[10px] text-[#1e1b18]">✦</span></div>
+                <span class="font-marker text-lg sm:text-xl font-bold text-[#e11d48] mx-auto pr-4">₹499</span>
+              </div>
+            </div>
+
+            <div onclick="selectCollection('Seoul Street (₹699)', this)" class="collection-card polaroid-card p-2 pb-3 rounded-[2px] cursor-pointer relative transform rotate-1">
+              <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 z-20 w-6 h-6 drop-shadow">
+                <svg viewBox="0 0 32 32"><circle cx="16" cy="14" r="6" fill="#1d4ed8"/><ellipse cx="15" cy="9" rx="7" ry="4.5" fill="#3b82f6"/><ellipse cx="13" cy="8" rx="2.5" ry="1.2" fill="#93c5fd"/></svg>
+              </div>
+              <div class="img-fit-slot aspect-[4/3.1] border border-[#a8a29e]">
+                <img src="https://i.postimg.cc/Y9BczKZm/image.png" alt="Seoul Street"/>
+              </div>
+              <div class="bg-[#231f20] mx-auto -mt-3.5 relative z-10 px-4 py-0.5 w-fit shadow transform -rotate-1">
+                <span class="font-hand text-sm sm:text-[15px] font-bold text-white tracking-wider uppercase">SEOUL STREET</span>
+              </div>
+              <p class="font-hand text-xs text-center text-[#37302e] mt-1">Edgy, trendy &amp; cool</p>
+              <div class="flex items-center justify-between mt-1.5 px-1">
+                <span class="hand-radio" aria-hidden="true"></span>
+                <span class="font-marker text-lg sm:text-xl font-bold text-[#e11d48] mx-auto pr-4">₹699</span>
+              </div>
+            </div>
+
+            <div onclick="selectCollection('Everyday Gold (₹799)', this)" class="collection-card polaroid-card p-2 pb-3 rounded-[2px] cursor-pointer relative transform -rotate-1">
+              <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 z-20 w-6 h-6 drop-shadow">
+                <svg viewBox="0 0 32 32"><circle cx="16" cy="14" r="6" fill="#ca8a04"/><ellipse cx="15" cy="9" rx="7" ry="4.5" fill="#facc15"/><ellipse cx="13" cy="8" rx="2.5" ry="1.2" fill="#fef08a"/></svg>
+              </div>
+              <div class="img-fit-slot aspect-[4/3.1] border border-[#d6bfa7]">
+                <img src="https://i.postimg.cc/nL7gzSzg/image.png" alt="Everyday Gold"/>
+              </div>
+              <div class="yellow-tape-banner mx-auto -mt-3.5 relative z-10 px-3.5 py-0.5 w-fit shadow">
+                <span class="font-hand text-sm sm:text-[15px] font-bold text-[#1e1b18] tracking-wider uppercase">EVERYDAY GOLD</span>
+              </div>
+              <p class="font-hand text-xs text-center text-[#37302e] mt-1">Minimal, elegant &amp; timeless</p>
+              <div class="flex items-center justify-between mt-1.5 px-1">
+                <span class="hand-radio" aria-hidden="true"></span>
+                <span class="font-marker text-lg sm:text-xl font-bold text-[#e11d48] mx-auto pr-4">₹799</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- QUESTION 2 -->
+      <section class="relative mx-2 sm:mx-4">
+        <div class="pink-tape-banner inline-block px-4 sm:px-5 py-1.5 relative -mb-2.5 ml-1 z-30 transform -rotate-1">
+          <h3 class="font-hand text-base sm:text-[21px] font-bold text-[#1e1b18]">
+            2. Would you actually buy your selected Seoul Pouch collection at its listed price?
+          </h3>
+        </div>
+
+        <div class="torn-paper torn-edge-box pt-6 pb-4 px-3 sm:px-5">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div onclick="selectPriceSentiment('Yes, definitely!', this)" class="price-option-card selected cursor-pointer flex flex-col items-center">
+              <div class="pink-box img-fit-slot aspect-[4/2.6] rounded-sm border border-[#e6ccd2] shadow-sm transition-all">
+                <img src="https://media1.tenor.com/m/rk2nuiJI640AAAAM/stray-kids-felix.gif" alt="Yes"/>
+              </div>
+              <div class="flex items-center gap-2 mt-2 w-full justify-start sm:justify-center px-1">
+                <span class="hand-radio" aria-hidden="true"></span>
+                <span class="font-hand text-xs sm:text-[13.5px] font-bold text-[#231f20] leading-tight">Yes, definitely!</span>
+              </div>
+            </div>
+
+            <div onclick="selectPriceSentiment('Maybe, if quality is good', this)" class="price-option-card cursor-pointer flex flex-col items-center">
+              <div class="pink-box img-fit-slot aspect-[4/2.6] rounded-sm border border-[#e6ccd2] shadow-sm transition-all">
+                <img src="https://media1.tenor.com/m/GSLoUccJU2oAAAAd/maybe-rdj.gif" alt="Maybe"/>
+              </div>
+              <div class="flex items-center gap-2 mt-2 w-full justify-start sm:justify-center px-1">
+                <span class="hand-radio" aria-hidden="true"></span>
+                <span class="font-hand text-xs sm:text-[13px] font-bold text-[#231f20] leading-tight text-center">Maybe, if quality<br class="hidden sm:inline"/> is good</span>
+              </div>
+            </div>
+
+            <div onclick="selectPriceSentiment('Only if it\'s cheaper', this)" class="price-option-card cursor-pointer flex flex-col items-center">
+              <div class="pink-box img-fit-slot aspect-[4/2.6] rounded-sm border border-[#e6ccd2] shadow-sm transition-all">
+                <img src="https://media1.tenor.com/m/cYpubp9f_J4AAAAC/brewing-love-drunken-romance.gif" alt="Cheaper"/>
+              </div>
+              <div class="flex items-center gap-2 mt-2 w-full justify-start sm:justify-center px-1">
+                <span class="hand-radio" aria-hidden="true"></span>
+                <span class="font-hand text-xs sm:text-[13.5px] font-bold text-[#231f20] leading-tight">Only if it's cheaper</span>
+              </div>
+            </div>
+
+            <div onclick="selectPriceSentiment('Not interested', this)" class="price-option-card cursor-pointer flex flex-col items-center">
+              <div class="pink-box img-fit-slot aspect-[4/2.6] rounded-sm border border-[#e6ccd2] shadow-sm transition-all">
+                <img src="https://media1.tenor.com/m/TMtmlL-dFuoAAAAC/iqiyi-ghost-doctor.gif" alt="Not interested"/>
+              </div>
+              <div class="flex items-center gap-2 mt-2 w-full justify-start sm:justify-center px-1">
+                <span class="hand-radio" aria-hidden="true"></span>
+                <span class="font-hand text-xs sm:text-[13.5px] font-bold text-[#231f20] leading-tight">Not interested</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- QUESTION 3 (Original Illustrated Accessories) -->
+      <section class="relative mx-2 sm:mx-4">
+        <div class="pink-tape-banner inline-block px-4 sm:px-5 py-1.5 relative -mb-2.5 ml-1 z-30 transform -rotate-1">
+          <h3 class="font-hand text-base sm:text-[21px] font-bold text-[#1e1b18]">
+            3. Which accessories would you love to have <span class="underline decoration-[#1e1b18]/40">inside</span> your pouch?
+          </h3>
+        </div>
+
+        <div style="--base-rot: 12deg;" class="sticker-float absolute -right-4 -top-2 z-30 w-10 h-10 sm:w-12 sm:h-12 transform rotate-12 drop-shadow-md pointer-events-none">
+          <svg viewBox="0 0 55 55">
+            <polygon points="27,3 34,18 50,19 38,30 41,46 27,37 13,46 16,30 4,19 20,18" fill="#ffffff" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>
+            <polygon points="27,5 33,19 48,20 37,29 40,44 27,36 14,44 17,29 6,20 21,19" fill="#facc15" stroke="#1e1b18" stroke-width="2.2"/>
+          </svg>
+        </div>
+
+        <div class="washi-tape w-8 h-5 absolute -left-2 top-8 z-30 transform -rotate-45"></div>
+
+        <div class="torn-paper torn-edge-box pt-5 pb-4 px-3 sm:px-4">
+          <p class="font-hand text-xs sm:text-sm font-bold text-[#2b2523] mb-2.5 ml-2">
+            Select all that you like <span class="text-[#e11d48]">♡</span>
+          </p>
+
+          <div class="grid grid-cols-4 sm:grid-cols-8 gap-2 items-start">
+            <div onclick="toggleAccessory('Earrings', this)" class="acc-checkbox-card selected cursor-pointer flex flex-col items-center">
+              <div class="acc-thumb w-full aspect-square bg-[#f4dce0] border border-[#e6ccd2] rounded-[2px] flex items-center justify-center transition-all p-1">
+                <svg viewBox="0 0 70 70" class="w-full h-full">
+                  <g transform="translate(22, 38) rotate(-6)"><circle cx="0" cy="-14" r="3" fill="#f472b6"/><circle cx="0" cy="-6" r="5" fill="#f472b6"/><circle cx="6" cy="-1" r="5" fill="#f472b6"/><circle cx="4" cy="6" r="5" fill="#f472b6"/><circle cx="-4" cy="6" r="5" fill="#f472b6"/><circle cx="-6" cy="-1" r="5" fill="#f472b6"/><circle cx="0" cy="0" r="3.5" fill="#facc15"/></g>
+                  <g transform="translate(48, 36) rotate(6)"><circle cx="0" cy="-14" r="3" fill="#f472b6"/><circle cx="0" cy="-6" r="5" fill="#f472b6"/><circle cx="6" cy="-1" r="5" fill="#f472b6"/><circle cx="4" cy="6" r="5" fill="#f472b6"/><circle cx="-4" cy="6" r="5" fill="#f472b6"/><circle cx="-6" cy="-1" r="5" fill="#f472b6"/><circle cx="0" cy="0" r="3.5" fill="#facc15"/></g>
+                </svg>
+              </div>
+              <div class="flex items-center gap-1 mt-1.5"><span class="hand-checkbox">✓</span><span class="font-hand text-[10px] sm:text-[11px] font-bold text-[#231f20]">Earrings</span></div>
+            </div>
+
+            <div onclick="toggleAccessory('Necklaces', this)" class="acc-checkbox-card selected cursor-pointer flex flex-col items-center">
+              <div class="acc-thumb w-full aspect-square bg-[#f4dce0] border border-[#e6ccd2] rounded-[2px] flex items-center justify-center transition-all p-1">
+                <svg viewBox="0 0 70 70" class="w-full h-full">
+                  <path d="M10 10 C12 42, 58 42, 60 10" fill="none" stroke="#ec4899" stroke-width="5" stroke-dasharray="3 5" stroke-linecap="round"/>
+                  <path d="M10 10 C12 42, 58 42, 60 10" fill="none" stroke="#60a5fa" stroke-width="5" stroke-dasharray="3 7" stroke-dashoffset="4" stroke-linecap="round"/>
+                  <path d="M35 52 C35 52 27 45 27 40 C27 37 30 36 32 38 C34 39 35 41 35 41 C35 41 36 39 38 38 C40 36 43 37 43 40 C43 45 35 52 35 52 Z" fill="#f9a8d4" stroke="#db2777" stroke-width="1.5"/>
+                </svg>
+              </div>
+              <div class="flex items-center gap-1 mt-1.5"><span class="hand-checkbox">✓</span><span class="font-hand text-[10px] sm:text-[11px] font-bold text-[#231f20]">Necklaces</span></div>
+            </div>
+
+            <div onclick="toggleAccessory('Rings', this)" class="acc-checkbox-card cursor-pointer flex flex-col items-center">
+              <div class="acc-thumb w-full aspect-square bg-[#f4dce0] border border-[#e6ccd2] rounded-[2px] flex items-center justify-center transition-all p-1">
+                <svg viewBox="0 0 70 70" class="w-full h-full">
+                  <ellipse cx="35" cy="36" rx="21" ry="11" fill="none" stroke="#f59e0b" stroke-width="4"/>
+                  <path d="M35 50 C35 50 23 41 23 35 C23 30 28 29 31 31 C34 33 35 35 35 35 C35 35 36 33 39 31 C42 29 47 30 47 35 C47 41 35 50 35 50 Z" fill="#f472b6" stroke="#d97706" stroke-width="2"/>
+                </svg>
+              </div>
+              <div class="flex items-center gap-1 mt-1.5"><span class="hand-checkbox"></span><span class="font-hand text-[10px] sm:text-[11px] font-bold text-[#231f20]">Rings</span></div>
+            </div>
+
+            <div onclick="toggleAccessory('Bracelets', this)" class="acc-checkbox-card selected cursor-pointer flex flex-col items-center">
+              <div class="acc-thumb w-full aspect-square bg-[#f4dce0] border border-[#e6ccd2] rounded-[2px] flex items-center justify-center transition-all p-1">
+                <svg viewBox="0 0 70 70" class="w-full h-full">
+                  <ellipse cx="35" cy="35" rx="23" ry="17" fill="none" stroke="#ec4899" stroke-width="6.5" stroke-dasharray="4 5" stroke-linecap="round"/>
+                  <ellipse cx="35" cy="35" rx="23" ry="17" fill="none" stroke="#3b82f6" stroke-width="6.5" stroke-dasharray="3 7" stroke-dashoffset="3" stroke-linecap="round"/>
+                  <circle cx="35" cy="52" r="6.5" fill="#facc15" stroke="#ca8a04" stroke-width="1"/>
+                  <circle cx="33" cy="50.5" r="1" fill="#1e1b18"/><circle cx="37" cy="50.5" r="1" fill="#1e1b18"/>
+                  <path d="M32 53 Q35 56 38 53" fill="none" stroke="#1e1b18" stroke-width="1"/>
+                </svg>
+              </div>
+              <div class="flex items-center gap-1 mt-1.5"><span class="hand-checkbox">✓</span><span class="font-hand text-[10px] sm:text-[11px] font-bold text-[#231f20]">Bracelets</span></div>
+            </div>
+
+            <div onclick="toggleAccessory('Scrunchies', this)" class="acc-checkbox-card selected cursor-pointer flex flex-col items-center">
+              <div class="acc-thumb w-full aspect-square bg-[#f4dce0] border border-[#e6ccd2] rounded-[2px] flex items-center justify-center transition-all p-1">
+                <svg viewBox="0 0 70 70" class="w-full h-full">
+                  <circle cx="35" cy="35" r="24" fill="#e87993" stroke="#be4b68" stroke-width="1.5"/>
+                  <path d="M15 30 Q26 22 30 30 M22 16 Q32 16 33 26 M42 13 Q46 22 40 28 M56 26 Q46 32 42 32 M52 46 Q42 44 39 38 M26 55 Q30 44 33 42" stroke="#fbcfe8" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                  <circle cx="35" cy="35" r="7" fill="#f4dce0" stroke="#be4b68" stroke-width="1.5"/>
+                </svg>
+              </div>
+              <div class="flex items-center gap-1 mt-1.5"><span class="hand-checkbox">✓</span><span class="font-hand text-[10px] sm:text-[11px] font-bold text-[#231f20]">Scrunchies</span></div>
+            </div>
+
+            <div onclick="toggleAccessory('Hair Clips', this)" class="acc-checkbox-card cursor-pointer flex flex-col items-center">
+              <div class="acc-thumb w-full aspect-square bg-[#f4dce0] border border-[#e6ccd2] rounded-[2px] flex items-center justify-center transition-all p-1">
+                <svg viewBox="0 0 70 70" class="w-full h-full">
+                  <g transform="translate(29, 30) rotate(-30)"><rect x="-18" y="-5.5" width="36" height="11" rx="5.5" fill="#f472b6" stroke="#db2777" stroke-width="1"/><circle cx="-8" cy="0" r="3.8" fill="#fbcfe8"/></g>
+                  <g transform="translate(41, 42) rotate(-30)"><rect x="-18" y="-5.5" width="36" height="11" rx="5.5" fill="#fb7185" stroke="#e11d48" stroke-width="1"/><circle cx="-7" cy="0" r="3" fill="#fef08a"/><circle cx="3" cy="0" r="2.8" fill="#fff"/></g>
+                </svg>
+              </div>
+              <div class="flex items-center gap-1 mt-1.5"><span class="hand-checkbox"></span><span class="font-hand text-[10px] sm:text-[11px] font-bold text-[#231f20]">Hair Clips</span></div>
+            </div>
+
+            <div onclick="toggleAccessory('Bag / Phone Charms', this)" class="acc-checkbox-card cursor-pointer flex flex-col items-center">
+              <div class="acc-thumb w-full aspect-square bg-[#f4dce0] border border-[#e6ccd2] rounded-[2px] flex items-center justify-center transition-all p-1">
+                <svg viewBox="0 0 70 70" class="w-full h-full">
+                  <circle cx="38" cy="13" r="4.5" fill="none" stroke="#d97706" stroke-width="2"/>
+                  <path d="M40 18 C52 30, 56 52, 44 56 C35 59, 36 36, 39 18" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="1 5" stroke-linecap="round"/>
+                  <path d="M20 44 C22 32, 30 24, 36 18" fill="none" stroke="#15803d" stroke-width="1.6"/>
+                  <path d="M31 46 C31 34, 33 26, 36 18" fill="none" stroke="#15803d" stroke-width="1.6"/>
+                  <circle cx="19" cy="48" r="6.5" fill="#dc2626"/><circle cx="30" cy="49" r="6.5" fill="#b91c1c"/>
+                </svg>
+              </div>
+              <div class="flex items-start gap-1 mt-1.5"><span class="hand-checkbox mt-0.5"></span><span class="font-hand text-[9px] sm:text-[10px] leading-tight font-bold text-[#231f20] text-center">Charms</span></div>
+            </div>
+
+            <div onclick="toggleAccessory('Others', this)" class="acc-checkbox-card cursor-pointer flex flex-col items-center">
+              <div class="acc-thumb w-full aspect-square bg-[#faf6ed] border border-dashed border-[#a89f91] rounded-[2px] flex items-center justify-center transition-all p-1 hover:bg-[#fff]">
+                <span class="font-hand text-2xl text-[#57534e]">+</span>
+              </div>
+              <div class="flex items-center gap-1 mt-1.5"><span class="hand-checkbox"></span><span class="font-hand text-[10px] sm:text-[11px] font-bold text-[#231f20]">Others</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- QUESTION 4 -->
+      <section class="relative mx-2 sm:mx-4 pb-14">
+        <div class="pink-tape-banner inline-block px-4 sm:px-5 py-1.5 relative -mb-2.5 ml-1 z-30 transform -rotate-1">
+          <h3 class="font-hand text-base sm:text-[21px] font-bold text-[#1e1b18]">
+            4. What would make you buy this product?
+          </h3>
+        </div>
+
+        <div style="--base-rot: 6deg;" class="sticker-float absolute -right-2 top-3 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white p-0.5 shadow-md transform rotate-6 pointer-events-none">
+          <svg viewBox="0 0 50 50" class="w-full h-full">
+            <circle cx="25" cy="25" r="22" fill="#facc15" stroke="#1e1b18" stroke-width="2.5"/>
+            <ellipse cx="18" cy="20" rx="2.3" ry="3.8" fill="#1e1b18"/>
+            <ellipse cx="32" cy="20" rx="2.3" ry="3.8" fill="#1e1b18"/>
+            <path d="M14 28 Q25 39 36 28" fill="none" stroke="#1e1b18" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <!-- Question 4 Torn Paper Container with extra bottom padding so button is never cut off -->
+        <div class="torn-paper torn-edge-box pt-6 pb-20 px-4 sm:px-8 relative">
+          <textarea
+            id="feedback-thoughts"
+            rows="2"
+            placeholder="Tell us your thoughts... (e.g., design, price, quality, any other suggestions)"
+            class="w-full rounded-lg bg-[#fcfbf9] border border-[#d6cfc2] px-3.5 py-2.5 font-hand text-sm sm:text-base text-[#231f20] placeholder-[#9ca3af] shadow-inner focus:outline-none focus:border-[#ec1b7c] focus:ring-2 focus:ring-[#ec1b7c]/20 resize-none"
+          ></textarea>
+
+          <!-- Centered Hot-Pink Button positioned fully inside bottom spacing -->
+          <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 w-full justify-center px-4">
+            <button type="submit" class="hotpink-submit-btn px-6 sm:px-9 py-2.5 text-white font-hand text-base sm:text-[21px] font-bold tracking-wider uppercase whitespace-nowrap cursor-pointer">
+              SUBMIT FEEDBACK →
+            </button>
+            <span class="text-[#ec1b7c] text-2xl font-bold select-none hidden xs:inline">♡</span>
+          </div>
+        </div>
+
+        <div style="--base-rot: -12deg;" class="sticker-float absolute -left-2 sm:-left-3 -bottom-5 z-30 bg-[#f7dc6f] px-3 py-1.5 sm:px-3.5 sm:py-2 shadow-lg border border-[#f1c40f] transform -rotate-12 w-[110px] sm:w-[130px]">
+          <div class="washi-tape w-8 h-3 absolute -top-2 left-1/2 -translate-x-1/2 rotate-6"></div>
+          <p class="font-hand text-xs sm:text-[15px] font-bold leading-tight text-[#231f20] text-center">
+            Thank you!<br/>
+            <span class="text-[11px] sm:text-[13px]">for your support ♡</span>
+          </p>
+        </div>
+
+        <div style="--base-rot: 3deg;" class="sticker-float absolute -right-1 sm:-right-3 -bottom-7 z-30 flex flex-col items-end">
+          <div class="bg-[#f48fb1] px-2.5 py-1.5 sm:px-3 sm:py-2 shadow-lg border border-[#ec407a] transform rotate-3 w-[95px] sm:w-[110px] text-center">
+            <p class="font-hand text-[11px] sm:text-xs font-bold leading-tight text-[#1e1b18]">
+              Same<br/>Accessories<br/>Different<br/>Stories ♡
+            </p>
+          </div>
+        </div>
+      </section>
+    </form>
+
+    <!-- ======================================================== -->
+    <!-- FOOTER WITH CONTACT NUMBERS & GETSFLY DIGITAL CREDIT     -->
+    <!-- ======================================================== -->
+    <footer class="mt-6 pt-2 pb-6 px-4 text-center relative z-10 flex flex-col items-center justify-center gap-3">
+      <div class="flex items-center justify-center gap-2 flex-wrap">
+        <span class="text-[#ec4899]/70 text-sm">❀</span>
+        <p class="font-hand text-xs sm:text-sm text-[#e2e8f0] tracking-wide font-semibold text-center">
+          IVB Group 12 &nbsp;|&nbsp; Seoul Pouch &nbsp;|&nbsp; One Pouch. Multiple Moods.
+        </p>
+        <span class="text-green-200/80 text-sm">♡ ✦</span>
+      </div>
+
+      <!-- Contact Numbers -->
+      <div class="bg-black/30 backdrop-blur-xs px-3 sm:px-4 py-1.5 rounded-full border border-white/10 shadow-inner max-w-full overflow-x-auto">
+        <p class="font-hand text-[11px] sm:text-sm text-green-100 tracking-wider whitespace-nowrap">
+          📞 Contacts: <a href="tel:+919600168350" class="hover:underline text-yellow-300 font-bold">+91 96001 68350</a> &nbsp;|&nbsp; <a href="tel:+917550170839" class="hover:underline text-yellow-300 font-bold">+91 755 017 0839</a> &nbsp;|&nbsp; <a href="tel:+917550170839" class="hover:underline text-yellow-300 font-bold">+91 755 017 0839</a>
+        </p>
+      </div>
+
+      <!-- Developed by Getsfly Digital -->
+      <div class="mt-1">
+        <p class="font-hand text-xs text-emerald-300/90 tracking-wider">
+          Developed by <a href="https://www.getsfly.in" target="_blank" rel="noopener noreferrer" class="text-yellow-300 font-bold hover:underline">getsflydigital</a> — <a href="https://www.getsfly.in" target="_blank" rel="noopener noreferrer" class="hover:underline text-emerald-200">www.getsfly.in</a>
+        </p>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- WHATSAPP REDIRECT MODAL                                  -->
+  <!-- ======================================================== -->
+  <div id="feedback-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+    <div class="torn-paper torn-edge-box max-w-md w-full p-5 sm:p-6 pt-7 sm:pt-8 relative text-center transform -rotate-1 border-2 border-[#e6dec8]">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-8 drop-shadow">
+        <svg viewBox="0 0 32 32"><circle cx="16" cy="14" r="6" fill="#dc2626"/><ellipse cx="15" cy="9" rx="7" ry="4.5" fill="#ef4444"/><ellipse cx="13" cy="8" rx="2.5" ry="1.2" fill="#fca5a5"/></svg>
+      </div>
+
+      <div class="pink-tape-banner inline-block px-5 py-1 mb-3 transform rotate-1">
+        <h4 class="font-hand text-xl sm:text-2xl font-bold text-[#1e1b18]">Ready to Send! ♡</h4>
+      </div>
+
+      <p class="font-hand text-sm sm:text-base text-[#2b2523] mb-3">
+        Your feedback for <strong>IVB Group 12 Seoul Pouch</strong> is prefilled and ready to send directly via WhatsApp to <strong>+91 99405 90590</strong>!
+      </p>
+
+      <div id="modal-summary" class="bg-[#fbf7ec] border border-[#e2d6b5] rounded p-3 text-left font-hand text-xs sm:text-sm space-y-1.5 text-[#231f20] mb-5 shadow-inner max-h-[180px] overflow-y-auto">
+        <!-- Populated dynamically -->
+      </div>
+
+      <div class="flex items-center justify-center gap-3">
+        <button onclick="sendToWhatsApp()" class="hotpink-submit-btn px-5 sm:px-6 py-2 text-white font-hand text-base sm:text-lg font-bold tracking-wide cursor-pointer bg-emerald-600">
+          Open WhatsApp 💬
+        </button>
+        <button onclick="closeFeedbackModal()" class="px-4 sm:px-5 py-2 bg-stone-300 hover:bg-stone-400 text-stone-800 font-hand text-sm sm:text-base font-bold rounded cursor-pointer">
+          Edit
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE SCRIPT -->
+  <script>
+    const surveyState = {
+      collection: 'Seoul Pop (₹499)',
+      priceSentiment: 'Yes, definitely!',
+      accessories: new Set(['Earrings', 'Necklaces', 'Bracelets', 'Scrunchies']),
+      thoughts: ''
+    };
+
+    function selectCollection(name, cardEl) {
+      surveyState.collection = name;
+      document.querySelectorAll('.collection-card').forEach(el => el.classList.remove('selected'));
+      cardEl.classList.add('selected');
+    }
+
+    function selectPriceSentiment(sentiment, cardEl) {
+      surveyState.priceSentiment = sentiment;
+      document.querySelectorAll('.price-option-card').forEach(el => el.classList.remove('selected'));
+      cardEl.classList.add('selected');
+    }
+
+    function toggleAccessory(itemName, cardEl) {
+      const box = cardEl.querySelector('.hand-checkbox');
+      if (surveyState.accessories.has(itemName)) {
+        surveyState.accessories.delete(itemName);
+        cardEl.classList.remove('selected');
+        box.textContent = '';
+      } else {
+        surveyState.accessories.add(itemName);
+        cardEl.classList.add('selected');
+        box.textContent = '✓';
+      }
+    }
+
+    function handleFeedbackSubmit(event) {
+      event.preventDefault();
+      const thoughtsInput = document.getElementById('feedback-thoughts');
+      surveyState.thoughts = thoughtsInput.value.trim() || 'Love the K-inspired scrapbook vibe! ♡';
+
+      const accList = Array.from(surveyState.accessories);
+      const summaryEl = document.getElementById('modal-summary');
+      summaryEl.innerHTML = `
+        <div><span class="text-[#e91e78] font-bold">★ Chosen Vibe:</span> ${surveyState.collection}</div>
+        <div><span class="text-[#e91e78] font-bold">★ Price Verdict:</span> ${surveyState.priceSentiment}</div>
+        <div><span class="text-[#e91e78] font-bold">★ Favourite Picks:</span> ${accList.length ? accList.join(', ') : 'Surprise me!'}</div>
+        <div><span class="text-[#e91e78] font-bold">★ Note:</span> "${surveyState.thoughts}"</div>
+      `;
+
+      const modal = document.getElementById('feedback-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function sendToWhatsApp() {
+      const accList = Array.from(surveyState.accessories);
+      const msg = `*Seoul Pouch Feedback — IVB Group 12* ♡\n\n` +
+                  `• *Chosen Vibe:* ${surveyState.collection}\n` +
+                  `• *Price Verdict:* ${surveyState.priceSentiment}\n` +
+                  `• *Selected Accessories:* ${accList.join(', ')}\n` +
+                  `• *Thoughts:* "${surveyState.thoughts}"`;
+      
+      const whatsappNumber = '9940590590';
+      const encodedMsg = encodeURIComponent(msg);
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
+      window.open(whatsappUrl, '_blank');
+      closeFeedbackModal();
+    }
+
+    function closeFeedbackModal() {
+      const modal = document.getElementById('feedback-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  </script>
+</body>
+</html>
